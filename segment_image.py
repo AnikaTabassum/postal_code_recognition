@@ -31,7 +31,7 @@ class segmentation:
 		(thresh, img_bin) = cv2.threshold(img, 128, 255,
 		 cv2.THRESH_BINARY | cv2.THRESH_OTSU)  # Invert the image
 		img_bin = 255-img_bin
-		cv2.imwrite("Image_bin"+filename+".jpg", img_bin)
+		cv2.imwrite("dataset/bin/Image_bin"+filename+".jpg", img_bin)
 
 
 		# Defining a kernel length
@@ -49,10 +49,10 @@ class segmentation:
 		img_temp1 = cv2.erode(img_bin, verticle_kernel, iterations=3)
 		verticle_lines_img = cv2.dilate(img_temp1, verticle_kernel, iterations=3)
 		# Morphological operation to detect horizontal lines from an image
-		cv2.imwrite("verticle_lines"+filename, verticle_lines_img)
+		cv2.imwrite("dataset/vertical/verticle_lines"+filename, verticle_lines_img)
 		img_temp2 = cv2.erode(img_bin, hori_kernel, iterations=3)
 		horizontal_lines_img = cv2.dilate(img_temp2, hori_kernel, iterations=3)
-		cv2.imwrite("horizontal_lines"+filename, horizontal_lines_img)
+		cv2.imwrite("dataset/horizontal/horizontal_lines"+filename, horizontal_lines_img)
 
 
 		# Weighting parameters, this will decide the quantity of an image to be added to make a new image.
@@ -64,7 +64,7 @@ class segmentation:
 		img_final_bin = cv2.erode(~img_final_bin, kernel, iterations=2)
 		(thresh, img_final_bin) = cv2.threshold(
 			img_final_bin, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
-		cv2.imwrite("img_final_bin"+filename, img_final_bin)
+		cv2.imwrite("dataset/final_bin/img_final_bin"+filename, img_final_bin)
 
 
 		# Find contours for image, which will detect all the boxes
